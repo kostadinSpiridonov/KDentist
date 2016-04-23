@@ -1,0 +1,10 @@
+﻿<Window x:Class="KDentist.SetToothSymbol"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="SetToothSymbol" Height="445" Width="300">
+    <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+        
+        <StackPanel Orientation="Vertical" x:Name="Diagnoses">
+        </StackPanel>
+    </ScrollViewer>
+</Window>

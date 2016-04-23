@@ -1,0 +1,168 @@
+﻿<Page x:Class="KDentist.Views.DoctorViews.EditDoctor"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" 
+      xmlns:vm="clr-namespace:KDentist.ViewModels.DoctorViewModels"
+      xmlns:vr="clr-namespace:KDentist.ValidationRules"
+      xmlns:cv="clr-namespace:KDentist.Converters"
+      d:DesignHeight="300" d:DesignWidth="300"
+	Title="EditDoctor">
+    <Page.DataContext>
+        <vm:EditDoctorViewModel x:Name="EditDoctorViewModel"></vm:EditDoctorViewModel>
+    </Page.DataContext>
+    <Page.Resources>
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="Validation.ErrorTemplate">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <DockPanel LastChildFill="True">
+                            <TextBlock DockPanel.Dock="Bottom"
+                        Foreground="Red"
+                        FontSize="12pt"
+                        Text="{Binding ElementName=MyAdorner, 
+                               Path=AdornedElement.(Validation.Errors)[0].ErrorContent}">
+                            </TextBlock>
+                            <Border BorderBrush="Red" BorderThickness="2">
+                                <AdornedElementPlaceholder Name="MyAdorner" />
+                            </Border>
+                        </DockPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Border Grid.Column="0"
+                BorderBrush="LightGray" BorderThickness="0 0 1 0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="45"></RowDefinition>
+                    <RowDefinition Height="0.10*"></RowDefinition>
+                    <RowDefinition Height="0.10*"></RowDefinition>
+                    <RowDefinition Height="0.10*"></RowDefinition>
+                    <RowDefinition Height="0.60*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"></ColumnDefinition>
+                    <ColumnDefinition Width="8*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0" 
+                 Grid.ColumnSpan="2" 
+                 Margin="0,0,0,0"
+                 Background="LightGray"
+                 Grid.Row="0">
+                    <TextBlock
+                     HorizontalAlignment="Center"
+                    FontSize="30" FontStyle="Italic"
+                    >Редактиране на лекар</TextBlock>
+                </Grid>
+                <Grid Margin="0,-40,0,0">
+                    <Button Width="40" Height="40"  Name="Back" Click="Back_Click"
+                        Padding="3"
+                        HorizontalAlignment="Left"
+                        Background="Transparent"
+                        BorderBrush="Transparent"
+                        BorderThickness="0"
+                        VerticalAlignment="Top">
+                        <Button.Content>
+                            <Image Source="\Resources\Arrow.png"></Image>
+                        </Button.Content>
+                    </Button>
+                </Grid>
+
+                <Grid Grid.Column="0" Grid.Row="1">
+                    <TextBlock
+                        FontSize="20"
+                        Margin="50,0,0,20"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Left"
+                        >Първо име</TextBlock>
+                </Grid>
+                <Grid Grid.Column="0" Grid.Row="2">
+                    <TextBlock
+                        FontSize="20"
+                        Margin="50,0,0,20"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Left">
+                         Второ име</TextBlock>
+                </Grid>
+                <Grid Grid.Column="0" Grid.Row="3">
+                    <TextBlock
+                        FontSize="20"
+                        Margin="50,0,0,20"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Left">
+                        Фамилия</TextBlock>
+                </Grid>
+
+                <Grid Grid.Column="1" Grid.Row="1">
+                    <TextBox
+                        Name="FirstName"
+                        Height="35"
+                        FontSize="15"
+                        VerticalContentAlignment="Center"
+                        Margin="20,0,50,0">
+                        <TextBox.Text>
+                            <Binding Path="FirstName" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <vr:RequiredRuleString  ValidationStep="CommittedValue"/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                </Grid>
+                <Grid Grid.Column="1" Grid.Row="2">
+                    <TextBox
+                     Height="35"
+                     FontSize="15"
+                     VerticalContentAlignment="Center"
+                     Name="SecondName"
+                     Margin="20,0,50,0">
+                        <TextBox.Text>
+                            <Binding Path="SecondName" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <vr:RequiredRuleString  ValidationStep="CommittedValue"/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                </Grid>
+                <Grid Grid.Column="1" Grid.Row="3">
+                    <TextBox
+                     Height="35"
+                     FontSize="15"
+                     VerticalContentAlignment="Center"
+                     Name="LastName"
+                     Margin="20,0,50,0">
+                        <TextBox.Text>
+                            <Binding Path="LastName" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <vr:RequiredRuleString  ValidationStep="CommittedValue"/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                </Grid>
+                <Grid Grid.Column="1" Grid.Row="4" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Button Name="Submit" Click="Submit_Click"
+                            Height="40"
+                            VerticalAlignment="Top"
+                            Margin="20,0,0,0">
+                        Добави
+                    </Button>
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
+</Page>

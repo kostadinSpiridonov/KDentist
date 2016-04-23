@@ -1,0 +1,267 @@
+﻿<Page x:Class="KDentist.AddDentalProcedure"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+      xmlns:vm="clr-namespace:KDentist.ViewModels"
+      xmlns:vr="clr-namespace:KDentist.ValidationRules"
+      xmlns:cv="clr-namespace:KDentist.Converters"
+	Title="AddDentalProcedure">
+
+    <Page.DataContext>
+        <vm:AddDentalProcedureViewModel x:Name="AddDPViewModel"></vm:AddDentalProcedureViewModel>
+    </Page.DataContext>
+    <Page.Resources>
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="Validation.ErrorTemplate">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <DockPanel LastChildFill="True">
+                            <TextBlock DockPanel.Dock="Bottom"
+                        Foreground="Red"
+                        FontSize="12pt"
+                        Text="{Binding ElementName=MyAdorner, 
+                               Path=AdornedElement.(Validation.Errors)[0].ErrorContent}">
+                            </TextBlock>
+                            <Border BorderBrush="Red" BorderThickness="2">
+                                <AdornedElementPlaceholder Name="MyAdorner" />
+                            </Border>
+                        </DockPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.3*"></ColumnDefinition>
+            <ColumnDefinition Width="0.7*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="45"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Column="0" 
+              Grid.ColumnSpan="3" 
+              Grid.Row="0"
+              Background="LightGray">
+            <TextBlock
+              HorizontalAlignment="Left"
+                Margin="50,0,0,0"
+                FontSize="25"
+                FontStyle="Italic"
+                >Добавяне на нова процедура</TextBlock>
+        </Grid>
+        <Grid Grid.Column="0" Grid.Row="1">
+            <TextBlock
+                FontSize="19"
+                VerticalAlignment="Center"
+                Margin="50,0,0,0"
+                HorizontalAlignment="Left"
+                >Зъб</TextBlock>
+        </Grid>
+        <Grid Grid.Column="0" Grid.Row="2">
+            <TextBlock
+                FontSize="19"
+                VerticalAlignment="Center"
+                Margin="50,0,0,0"
+                HorizontalAlignment="Left">
+                Диагноза</TextBlock>
+        </Grid>
+        <Grid Grid.Column="0" Grid.Row="3">
+            <TextBlock
+                FontSize="19"
+                VerticalAlignment="Center"
+                Margin="50,0,0,0"
+                HorizontalAlignment="Left">
+                Дейност</TextBlock>
+        </Grid>
+        <Grid Grid.Column="0" Grid.Row="4">
+            <TextBlock
+                FontSize="19"
+                VerticalAlignment="Center"
+                Margin="50,0,0,0"
+                HorizontalAlignment="Left">
+                Бележка</TextBlock>
+        </Grid>
+
+        <Grid Grid.Column="0" Grid.Row="5">
+            <TextBlock
+                FontSize="19"
+                VerticalAlignment="Center"
+                Margin="50,0,0,0"
+                HorizontalAlignment="Left">
+                Дата</TextBlock>
+        </Grid>
+        <Grid Grid.Column="0" Grid.Row="6">
+            <TextBlock
+                FontSize="19"
+                VerticalAlignment="Center"
+                Margin="50,0,0,0"
+                HorizontalAlignment="Left">
+               Зъботехик</TextBlock>
+        </Grid>
+        <Grid Grid.Column="0" Grid.Row="7">
+            <TextBlock
+                FontSize="19"
+                VerticalAlignment="Center"
+                Margin="50,0,0,0"
+                HorizontalAlignment="Left">
+               Доктор</TextBlock>
+        </Grid>
+        <Grid Grid.Column="0" Grid.Row="8">
+            <TextBlock
+                FontSize="19"
+                VerticalAlignment="Center"
+                Margin="50,0,0,0"
+                HorizontalAlignment="Left">
+               Платена сума</TextBlock>
+        </Grid>
+
+        <Grid Grid.Column="1" Grid.Row="1">
+            <TextBox
+                Name="Tooth"
+                Margin="20,5,0,5"
+                      Height="35"
+                VerticalContentAlignment="Center"
+                FontSize="16">
+                <TextBox.Text>
+                    <Binding Path="Tooth" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <vr:RequiredRuleString  ValidationStep="CommittedValue"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="2">
+            <TextBox
+                Name="Diagnosis"
+                Margin="20,5,0,5"
+                      Height="35"
+                VerticalContentAlignment="Center"
+                FontSize="16">
+                <TextBox.Text>
+                    <Binding Path="Diagnosis" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <vr:RequiredRuleString  ValidationStep="CommittedValue"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="3">
+            <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                <Border x:Name="ActivityBorderError" Margin="20,5,0,5" Height="39" Padding="2" VerticalAlignment="Center">
+                    <ComboBox ItemsSource="{Binding Activities}" DisplayMemberPath="Name" SelectedValuePath="Id"
+                          SelectedValue="{Binding SelectedActivityId}"
+                          Height="35"
+                          x:Name="ActivitiesComboBox"
+                    VerticalContentAlignment="Center"
+                    FontSize="16">
+                    </ComboBox>
+                </Border>
+                <TextBlock Visibility="Collapsed" Name="ActivityErrorText" FontSize="16" Margin="20,0,0,0" Foreground="Red">Полето е задължително</TextBlock>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="4">
+            <TextBox
+                Name="Note"
+                Text="{Binding Note}"
+                Margin="20,5,0,5"
+                      Height="35"
+                VerticalContentAlignment="Center"
+                FontSize="16">
+            </TextBox>
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="5">
+            <DatePicker 
+                        x:Name="Date"
+                Margin="20,5,0,5"
+                      Height="35"
+                VerticalContentAlignment="Center"
+                FontSize="16">
+                <DatePicker.SelectedDate>
+                    <Binding  Path="Date" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <vr:DateValidationRuleRequired ValidationStep="CommittedValue"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </DatePicker.SelectedDate>
+            </DatePicker>
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="6">
+            <ComboBox ItemsSource="{Binding MDTs}" DisplayMemberPath="Name" SelectedValuePath="Id"
+                      SelectedValue="{Binding SelectedMdtId}"
+                Margin="20,5,0,5"
+                      Height="35"
+                VerticalContentAlignment="Center"
+                FontSize="16">
+            </ComboBox>
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="7">
+            <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                <Border x:Name="DoctorBorderError" Margin="20,5,0,5" Height="39" Padding="2">
+                    <ComboBox ItemsSource="{Binding Doctors}" SelectedValuePath="Id"
+                          SelectedValue="{Binding SelectedDoctorId}"
+
+                          Height="35"
+                          x:Name="DoctorComboBox"
+                    VerticalContentAlignment="Center"
+                    FontSize="16">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding FirstName}"></TextBlock>
+                                    <TextBlock  xml:space="preserve"> </TextBlock>
+                                    <TextBlock Text="{Binding LastName}"></TextBlock>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </Border>
+                <TextBlock Visibility="Collapsed" Name="DoctorErrorText" FontSize="16" Margin="20,0,0,0" Foreground="Red">Полето е задължително</TextBlock>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="8">
+            <TextBox
+                Name="PaidSum"
+                Margin="20,5,0,5"
+                      Height="35"
+                VerticalContentAlignment="Center"
+                FontSize="16">
+                <TextBox.Text>
+                    <Binding Path="PaidValue" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <vr:PositiveDecimalRule  ValidationStep="CommittedValue"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+        </Grid>
+        
+        <Grid Grid.Column="1" Grid.Row="9" Margin="20,0,0,0" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Name="Submit" Click="Submit_Click" Height="40" Margin="0,0,20,0">
+                Добави
+            </Button>
+            <Button Click="Back_Click" Grid.Column="1" Height="40">
+                Отказ
+            </Button>
+        </Grid>
+    </Grid>
+</Page>

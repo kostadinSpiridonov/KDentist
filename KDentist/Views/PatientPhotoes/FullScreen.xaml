@@ -1,0 +1,22 @@
+﻿<Window x:Class=" KDentist.Views.PatientPhotoes.FullScreen"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Topmost="True"
+        Title="FullScreen" Height="1280" Width="720"  WindowStyle="None" WindowState="Maximized">
+
+    <Grid Background="DarkGray">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="70"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="70"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"></RowDefinition>
+            <RowDefinition ></RowDefinition>
+            <RowDefinition Height="1"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Button  Grid.Column="2" Click="CloseFullscreen"  Height="30" Width="30" FontSize="20" >X</Button>
+        <Image Grid.Column="1" Grid.RowSpan="2" x:Name="FullscreenImage" Stretch="Uniform"></Image>
+    </Grid>
+
+</Window>
